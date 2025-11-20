@@ -175,6 +175,7 @@
       ],
       "right": [
         "netstat",
+        "volume",
         "network",
         "bluetooth",
         "systray",
@@ -192,6 +193,7 @@
         "media"
       ],
       "right": [
+        "volume",
         "clock",
         "notifications"
       ]
