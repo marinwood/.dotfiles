@@ -41,7 +41,8 @@ bindkey  "^[[3~"  delete-char
 
 ## ALIASES
 alias yay="paru"
-alias yeet="yay -Rsn"
+alias yas=" paru -S --needed"
+alias yeet="paru -Rsn"
 alias pacman="sudo pacman"
 alias hyprconf="micro ~/.config/hypr/hyprland.conf"
 alias bindconf="micro ~/.config/hypr/bindings.conf"
@@ -49,6 +50,19 @@ alias zshconf="micro ~/.config/zsh/.zshrc"
 alias fstab="micro /etc/fstab"
 alias m="micro"
 alias lg="lazygit"
+#bat replacements
+alias bathelp='bat --plain --language=help'
+help() {
+    "$@" --help 2>&1 | bathelp
+}
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+# Git
+alias g='git'
+alias gcm='git commit -m'
+alias gcam='git commit -a -m'
+alias gcad='git commit -a --amend'
+alias gp='git push -u origin main'
 
 # File system
 alias ls='eza -lh --group-directories-first --icons=auto'
@@ -81,13 +95,6 @@ function y() {
 	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
-
-# Git
-alias g='git'
-alias gcm='git commit -m'
-alias gcam='git commit -a -m'
-alias gcad='git commit -a --amend'
-alias gp='git push -u origin main'
 
 hyfetch
 eval "$(starship init zsh)"

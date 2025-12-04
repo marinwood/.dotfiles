@@ -5,9 +5,9 @@
 # GitHub: https://github.com/binoymanoj
 
 # Terminal to use
-TERMINAL="kitty"
+TERMINAL="ghostty"
 # Browser to use
-BROWSER="brave"
+BROWSER="helium"
 # Bookmarks directory
 BOOKMARKS_DIR="$HOME/Documents/"
 BOOKMARKS_FILE="$BOOKMARKS_DIR/bookmarks.txt"
@@ -18,21 +18,21 @@ NOTES_FILE="$NOTES_DIR/quick-notes.md"
 # Main menu options
 show_main_menu() {
     echo "󰀻 Apps"
-    echo "󱂬 TUI Apps"
     echo "󰏔 Install"
+    echo "󱂬 TUI Apps"
     echo "󰚰 Update"
     echo "󰆴 Remove"
-    echo "󱐋 Performance"
-    echo "󰖩 WiFi"
-    echo "󰂯 Bluetooth"
+#    echo "󱐋 Performance"
+#    echo "󰖩 WiFi"
+#    echo "󰂯 Bluetooth"
     echo "󰒓 Tools"
-    echo "󰲌 Projects"
-    echo "󰍉 Search"
-    echo "󰖟 Bookmarks"
-    echo "󰈙 Books"
-    echo "󰠮 Notes"
-    echo "󰔠 Time Tracker"
-    echo "󰠮 Journal"
+#    echo "󰲌 Projects"
+#    echo "󰍉 Search"
+#    echo "󰖟 Bookmarks"
+#    echo "󰈙 Books"
+#    echo "󰠮 Notes"
+#    echo "󰔠 Time Tracker"
+#    echo "󰠮 Journal"
     echo "󱡶 Services"
     echo "󰅬 Scripts"
     echo "󰌌 Keybinds"
@@ -75,7 +75,7 @@ show_tools() {
 # Improved browser detection
 detect_browser() {
     # Check for browsers in order of preference
-    for browser in brave brave-browser google-chrome-stable google-chrome chromium firefox; do
+    for browser in helium brave brave-browser google-chrome-stable google-chrome chromium firefox; do
         if command -v "$browser" >/dev/null 2>&1; then
             echo "$browser"
             return 0
@@ -92,13 +92,13 @@ show_install() {
         *"Pacman")
             PACKAGE=$(pacman -Slq | rofi -dmenu -i -p "Install package")
             if [ -n "$PACKAGE" ]; then
-                $TERMINAL -e bash -c "sudo pacman -S $PACKAGE --noconfirm; read -p 'Press enter to close...'"
+                $TERMINAL -e bash -c "sudo pacman -S --needed $PACKAGE --noconfirm; read -p 'Press enter to close...'"
             fi
             ;;
         *"Yay")
             PACKAGE=$(yay -Slq | rofi -dmenu -i -p "Install package")
             if [ -n "$PACKAGE" ]; then
-                $TERMINAL -e bash -c "yay -S $PACKAGE --noconfirm; read -p 'Press enter to close...'"
+                $TERMINAL -e bash -c "yay -S --needed $PACKAGE --noconfirm; read -p 'Press enter to close...'"
             fi
             ;;
         *"PWA"*)
@@ -801,7 +801,7 @@ show_services() {
 
 # Projects menu
 show_projects() {
-    DIRS=$(find ~/Codes ~/Codes/* ~/Codes/*/* ~/Development -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sed "s|^$HOME/||")
+    DIRS=$(find ~/Codes ~/Codes/* ~/Codes/*/* ~/Development ~/Work ~/Work/* ~/Work/*/* -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sed "s|^$HOME/||")
     
     if [ -z "$DIRS" ]; then
         notify-send "Projects" "No directories found"
